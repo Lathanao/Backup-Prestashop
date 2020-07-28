@@ -2,10 +2,11 @@
 
 ##  +-----------------------------------+-----------------------------------+
 ##  |                                                                       |
-##  | MIT License     |
+##  | MIT License                                                           |
 ##  |                                                                       |
-##  | Copyright (c) 2020 Tanguy SALMON                                  |
-##  | See LICENSE.md
+##  | Copyright (c) 2020 Tanguy SALMON                                      |
+##  | Version 0.2                                                           |
+##  | See LICENSE.md                                                        |
 ##  |                                                                       |
 ##  +-----------------------------------------------------------------------+
 
@@ -16,18 +17,30 @@
 ##	Then make a backup.
 ##
 
+##
+##	TODO:
+##	Test if can remove img/tmp/*
+##	CronJOb
+##  Send Archive on Gdrive
+##	Set zip compression
+##	Clean DB
+##	Remove empty dir in img/p
+##	Remove dir following composer.json (eg Prestashop/ps_modules)
+##
+
 function printLogo {
   echo -e "
   \e[38;5;60m ___                _          \e[38;5;196m    _          _ __
   \e[38;5;61m| _ \ _ _  ___  ___| |_  __ _  \e[38;5;197m___| |_   ___ | '_ \\
   \e[38;5;62m|  _/| '_|/ -_)(_-/|  _|/ _\` |\e[38;5;198m(_-/|   \ / _ \| .__/
   \e[38;5;63m|_|  |_|  \___|/__/ \__|\__/_|\e[38;5;199m/__/|_||_|\___/|_|
-  "
+  \e[38;5;45m"
 }
 
 function isConfFileExit {
   if [ -f "$1" ]; then
-      echo "$1 exists."
+      extractCredentials
+      printCredentials
   else
       echo "$1 does not exist."
       set -e
@@ -79,7 +92,6 @@ function removeNodeDirectories() {
 }
 
 function extractCredentials() {
-
   DATABASE_HOST=$(awk '/database_host/ {print $3}' $FILE | sed "s/[^[:alnum:]-]//g")
   DATABASE_NAME=$(awk '/database_name/ {print $3}' $FILE | sed "s/[^[:alnum:]-]//g")
   DATABASE_USER=$(awk '/database_user/ {print $3}' $FILE | sed "s/[^[:alnum:]-]//g")
@@ -87,11 +99,14 @@ function extractCredentials() {
 }
 
 function printCredentials() {
-  echo "-----CREDENTIAL-------"
-  echo $DATABASE_USER
-  echo $DATABASE_NAME
-  echo $DATABASE_USER
-  echo $DATABASE_PASSWORD
+  echo "##"
+  echo "## CREDENTIAL PRESTASHOP DETECTED"
+  echo "## ----------------------------------------------------"
+  echo "database_host => $DATABASE_HOST"
+  echo "database_name => $DATABASE_NAME"
+  echo "database_user => $DATABASE_USER"
+  echo "database_password => $DATABASE_PASSWORD"
+  echo ""
 }
 
 
@@ -110,7 +125,7 @@ isConfFileExit ${FILE}
 
 options=(
 'Make a SQL dump in root project'
-'Make a zip archive'
+'Make a zip archive in /tmp project'
 'Remove all cached + compiled files'
 'Remove all generated pictures'
 'Remove all Node.js files'
@@ -129,13 +144,12 @@ do
   case $REPLY in
     1) createDumpDB;;
     2) createZipArchive;;
-    2) removeCachedDirectories;;
-    2) removeGeneratedPictures;;
-    2) removeNodeDirectories;;
-    2) removeComposerDirectories;;
-    2) createDumpDB;createZipArchive;removeCachedDirectories;removeGeneratedPictures;removeNodeDirectories;removeComposerDirectories;createDumpDB;createZipArchive;;
-    2) echo 'Please check README';;
-    2) exit 0;;
+    3) removeCachedDirectories;;
+    4) removeGeneratedPictures;;
+    5) removeNodeDirectories;;
+    6) removeComposerDirectories;;
+    7) removeCachedDirectories;removeGeneratedPictures;removeNodeDirectories;removeComposerDirectories;createDumpDB;createZipArchive;;
+    8) echo 'Please check README';;
+    9) exit 0;;
   esac
-
 done
