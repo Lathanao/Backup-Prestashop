@@ -1,13 +1,29 @@
 # Backup-Prestashop
-Backup script to archive Prestashop projects
 
-1) Make a SQL dump in root project
-2) Make a zip archive
-3) Remove all cached + compiled files
-4) Remove all generated pictures
-5) Remove all Node.js files
-6) Remove all Composer files
-7) ( 3 -> 6 ) + 1 + 2 
+**Backup-Prestashop**  allow to reduce the size of the main directory of your Prestashop.
+hen make a backup.
 
-2) Clean Prestashop
-2) Copy directory in tmp, max reduce, then archive
+
+
+- **The script allow you to**:
+  - Make a SQL dump in root project
+  - Make a zip archive
+  - Remove all cached + compiled files
+  - Remove all generated pictures
+  - Remove all Node.js files
+  - Remove all Composer files
+  - All together
+
+- **TODO**:
+  - Test if can remove img/tmp/*
+  - CronJOb
+  - Send Archive on Gdrive
+  - Set zip compression
+  - Clean DB
+  - Remove empty dir in img/p
+  - Remove more directories following composer.json (eg Prestashop/ps_modules)
+  - check if install MozJpeg could improve again the archive weight lost
+
+- **Here what's look like the menu**:
+
+![synth-shell](doc/2020-07-28_19-44.png)
