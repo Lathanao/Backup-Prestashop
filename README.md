@@ -26,4 +26,4 @@ hen make a backup.
 
 - **Here what's look like the menu**:
 
-![synth-shell](doc/2020-07-28_19-44.png)
+![synth-shell](doc/2020-07-28_19-42.png)
