@@ -1,5 +1,21 @@
 #!/bin/bash -ex
 
+##  +-----------------------------------+-----------------------------------+
+##  |                                                                       |
+##  | MIT License     |
+##  |                                                                       |
+##  | Copyright (c) 2020 Tanguy SALMON                                  |
+##  | See LICENSE.md
+##  |                                                                       |
+##  +-----------------------------------------------------------------------+
+
+##
+##	DESCRIPTION:
+##	This script allow to reduce the size of the main directory of your
+##  Prestashop.
+##	Then make a backup.
+##
+
 function printLogo {
   echo -e "
   \e[38;5;60m ___                _          \e[38;5;196m    _          _ __
