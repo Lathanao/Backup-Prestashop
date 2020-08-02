@@ -19,7 +19,6 @@ hen make a backup.
 - **TODO**:
   - Add exception and message in red
   - Add a log file
-  - Find exact image type in DB then delete them
   - Set zip compression
   - Check if install MozJpeg could improve again the archive weight lost
   - Clean DB
