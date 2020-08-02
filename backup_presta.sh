@@ -49,7 +49,7 @@ function isConfFileExit {
 function removeGeneratedPictures() {
   echo "##-----------------------------------------------------"
   echo "## Remove Generated Pictures"
-  echo "##-----------------------------------------------------\n\e[0m"
+  echo "##-----------------------------------------------------\e[0m"
   find ./ -name '*cart_default*' -delete
   find ./ -name '*small_default*' -delete
   find ./ -name '*medium_default*' -delete
@@ -64,7 +64,7 @@ function removeGeneratedPictures() {
 function removeCachedDirectories() {
   echo "##-----------------------------------------------------"
   echo "## Remove Cached Directories"
-  echo "##-----------------------------------------------------\n\e[0m"
+  echo "##-----------------------------------------------------\e[0m"
   rm -rf ./install*
   rm -rf ./app/cache/*
   rm -rf ./app/test/*
@@ -73,21 +73,21 @@ function removeCachedDirectories() {
 
 function removeComposerDirectories() {
   echo "## Remove Composer Directories"
-  echo "## -----------------------------------------------------\n\e[0m"
+  echo "## -----------------------------------------------------\e[0m"
   rm -rf ./vendor/*
   rm -rf ./**/vendor/*
 }
 
 function removeCompiledAssets() {
   echo "## Remove Compiled Assets"
-  echo "## -----------------------------------------------------\n\e[0m"
+  echo "## -----------------------------------------------------\e[0m"
   find ./themes/**/assets/cache -type f -name '*.css' -delete
   find ./themes/**/assets/cache -type f -name '*.js' -delete
 }
 
 function removeNodeDirectories() {
   echo "## Remove Node Modules Directories"
-  echo "## -----------------------------------------------------\n\e[0m"
+  echo "## -----------------------------------------------------\e[0m"
   find . -type d -name 'node_modules' -exec rm -r {} +
 }
 
