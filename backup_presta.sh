@@ -2,18 +2,17 @@
 
 ##  +-----------------------------------+-----------------------------------+
 ##  |                                                                       |
-##  | MIT License                                                           |
 ##  |                                                                       |
 ##  | Copyright (c) 2020 Tanguy SALMON                                      |
 ##  | Version 0.2                                                           |
-##  | See LICENSE.md                                                        |
+##  | MIT License, See LICENSE.md                                           |
 ##  |                                                                       |
 ##  +-----------------------------------------------------------------------+
 
 ##
 ##	DESCRIPTION:
 ##	This script allow to reduce the size of the main directory of your
-##  Prestashop.
+##  Prestashop project.
 ##	Then make a backup.
 ##
 
@@ -50,7 +49,7 @@ function isConfFileExit {
 function removeGeneratedPictures() {
   printf "##-----------------------------------------------------\n"
   printf "## Remove Generated Pictures\n"
-  printf "##-----------------------------------------------------\n"
+  printf "##-----------------------------------------------------\n\e[0m"
   find ./ -name '*cart_default*' -delete
   find ./ -name '*small_default*' -delete
   find ./ -name '*medium_default*' -delete
@@ -59,12 +58,13 @@ function removeGeneratedPictures() {
   find ./ -name '*category_default*' -delete
   find ./ -name '*stores_default*' -delete
   find ./ -name '*side_default*' -delete
+  rm -rf ./img/tmp/*
 }
 
 function removeCachedDirectories() {
   printf "##-----------------------------------------------------\n"
   printf "## Remove Cached Directories\n"
-  printf "##-----------------------------------------------------\n"
+  printf "##-----------------------------------------------------\n\e[0m"
   rm -rf ./install*
   rm -rf ./app/cache/*
   rm -rf ./app/test/*
@@ -72,22 +72,22 @@ function removeCachedDirectories() {
 }
 
 function removeComposerDirectories() {
-  printf "##-----------------------------------------------------\n"
   printf "## Remove Composer Directories\n"
-  printf "##-----------------------------------------------------\n"
+  printf "## -----------------------------------------------------\n\e[0m"
   rm -rf ./vendor/*
   rm -rf ./**/vendor/*
 }
 
 function removeCompiledAssets() {
-  printf "##-----------------------------------------------------\n"
   printf "## Remove Compiled Assets\n"
-  printf "##-----------------------------------------------------\n"
+  printf "## -----------------------------------------------------\n\e[0m"
   find ./themes/**/assets/cache -type f -name '*.css' -delete
   find ./themes/**/assets/cache -type f -name '*.js' -delete
 }
 
 function removeNodeDirectories() {
+  printf "## Remove Node Modules Directories\n"
+  printf "## -----------------------------------------------------\n\e[0m"
   find . -type d -name 'node_modules' -exec rm -r {} +
 }
 
@@ -106,16 +106,32 @@ function printCredentials() {
   echo "database_name => $DATABASE_NAME"
   echo "database_user => $DATABASE_USER"
   echo "database_password => $DATABASE_PASSWORD"
-  echo ""
+  echo "\e[0m"
 }
 
-
 function createDumpDB() {
+  echo "##"
+  echo "## DUMP BD"
+  echo "## ----------------------------------------------------\e[0m"
+
   mysqldump -u $DATABASE_USER -p"${DATABASE_PASSWORD}" -h $DATABASE_HOST $DATABASE_NAME > $(date +%F)_$DATABASE_NAME.sql
+
+  echo ""
+  echo " Dump created in root directory project"
+  echo " ----------------------------------------------------\e[0m"
 }
 
 function createZipArchive() {
-  zip -r /tmp/`date +%Y%m%d`_${PWD##*/}.zip ./ --exclude "*.git*" --exclude "*cache*"
+  local BACKUP_NAME=`date +%Y%m%d`_${PWD##*/}
+  echo "##"
+  echo "## ZIP ARCHIVE CREATION"
+  echo "## ----------------------------------------------------\e[0m"
+
+  zip -r -9 /tmp/${BACKUP_NAME}.zip ./ --exclude "*.git*" --exclude "*.idea*"
+
+  echo ""
+  echo " Zip created at: /tmp/${BACKUP_NAME}.zip"
+  echo " ----------------------------------------------------\e[0m"
 }
 
 
