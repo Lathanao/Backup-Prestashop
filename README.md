@@ -1,9 +1,11 @@
 # Backup-Prestashop
 
-**Backup-Prestashop**  allow to reduce the size of the main directory of your Prestashop.
+**Backup-Prestashop 1.7**  allow to reduce the size of the main directory of your Prestashop 1.7.
 hen make a backup.
 
-
+- **How to use**:
+  - Go on your root directory project
+  - Run the script
 
 - **The script allow you to**:
   - Make a SQL dump in root project
@@ -15,15 +17,14 @@ hen make a backup.
   - All together
 
 - **TODO**:
-  - Test if can remove img/tmp/*
-  - CronJOb
-  - Send Archive on Gdrive
+  - Add exception and message in red
   - Set zip compression
+  - Check if install MozJpeg could improve again the archive weight lost
   - Clean DB
-  - Remove empty dir in img/p
-  - Remove more directories following composer.json (eg Prestashop/ps_modules)
-  - check if install MozJpeg could improve again the archive weight lost
-
+  - Remove the search index and the facet cache in DB
+  - CronJOb
+  - Send Archive on Gdrive with rclone
+  
 - **Here what's look like the menu**:
 
 ![synth-shell](doc/2020-07-28_19-42.png)
