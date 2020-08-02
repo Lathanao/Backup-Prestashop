@@ -72,10 +72,36 @@ function removeCachedDirectories() {
 }
 
 function removeComposerDirectories() {
-  echo "## Remove Composer Directories"
-  echo "## -----------------------------------------------------\e[0m"
-  rm -rf ./vendor/*
-  rm -rf ./**/vendor/*
+
+  COMPOSER_FILE="./composer.json"
+
+  if [ ! -f "$COMPOSER_FILE" ]; then
+      echo "${COMPOSER_FILE} is not found"
+      return
+  fi
+
+  while read line; do
+
+      PATH_COMPOSER=$( echo $line  | tr "\"" " " | awk '{ print $1 }' )
+      SUBDIR=$( echo $PATH_COMPOSER | awk -F "/" '{print $2}')
+
+      if [ -z "$SUBDIR" ]
+      then
+          continue
+      fi
+      if  [[ $PATH_COMPOSER == *"prestashop"* ]]
+      then
+          PATH_TO_DELETE="./modules/${SUBDIR}"
+      else
+          PATH_TO_DELETE="./vendor/${PATH_COMPOSER}"
+      fi
+      if  [ -d "$PATH_TO_DELETE" ]
+      then
+          rm -rf "${PATH_TO_DELETE}"
+          echo "${PATH_TO_DELETE} has been deleted"
+      fi
+
+  done < $COMPOSER_FILE
 }
 
 function removeCompiledAssets() {
