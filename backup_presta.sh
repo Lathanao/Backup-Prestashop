@@ -47,9 +47,9 @@ function isConfFileExit {
 }
 
 function removeGeneratedPictures() {
-  printf "##-----------------------------------------------------\n"
-  printf "## Remove Generated Pictures\n"
-  printf "##-----------------------------------------------------\n\e[0m"
+  echo "##-----------------------------------------------------\n"
+  echo "## Remove Generated Pictures\n"
+  echo "##-----------------------------------------------------\n\e[0m"
   find ./ -name '*cart_default*' -delete
   find ./ -name '*small_default*' -delete
   find ./ -name '*medium_default*' -delete
@@ -62,9 +62,9 @@ function removeGeneratedPictures() {
 }
 
 function removeCachedDirectories() {
-  printf "##-----------------------------------------------------\n"
-  printf "## Remove Cached Directories\n"
-  printf "##-----------------------------------------------------\n\e[0m"
+  echo "##-----------------------------------------------------\n"
+  echo "## Remove Cached Directories\n"
+  echo "##-----------------------------------------------------\n\e[0m"
   rm -rf ./install*
   rm -rf ./app/cache/*
   rm -rf ./app/test/*
@@ -72,22 +72,22 @@ function removeCachedDirectories() {
 }
 
 function removeComposerDirectories() {
-  printf "## Remove Composer Directories\n"
-  printf "## -----------------------------------------------------\n\e[0m"
+  echo "## Remove Composer Directories\n"
+  echo "## -----------------------------------------------------\n\e[0m"
   rm -rf ./vendor/*
   rm -rf ./**/vendor/*
 }
 
 function removeCompiledAssets() {
-  printf "## Remove Compiled Assets\n"
-  printf "## -----------------------------------------------------\n\e[0m"
+  echo "## Remove Compiled Assets\n"
+  echo "## -----------------------------------------------------\n\e[0m"
   find ./themes/**/assets/cache -type f -name '*.css' -delete
   find ./themes/**/assets/cache -type f -name '*.js' -delete
 }
 
 function removeNodeDirectories() {
-  printf "## Remove Node Modules Directories\n"
-  printf "## -----------------------------------------------------\n\e[0m"
+  echo "## Remove Node Modules Directories\n"
+  echo "## -----------------------------------------------------\n\e[0m"
   find . -type d -name 'node_modules' -exec rm -r {} +
 }
 
