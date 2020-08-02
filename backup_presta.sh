@@ -47,8 +47,8 @@ function isConfFileExit {
 }
 
 function removeGeneratedPictures() {
-  echo "##-----------------------------------------------------\n"
-  echo "## Remove Generated Pictures\n"
+  echo "##-----------------------------------------------------"
+  echo "## Remove Generated Pictures"
   echo "##-----------------------------------------------------\n\e[0m"
   find ./ -name '*cart_default*' -delete
   find ./ -name '*small_default*' -delete
@@ -62,8 +62,8 @@ function removeGeneratedPictures() {
 }
 
 function removeCachedDirectories() {
-  echo "##-----------------------------------------------------\n"
-  echo "## Remove Cached Directories\n"
+  echo "##-----------------------------------------------------"
+  echo "## Remove Cached Directories"
   echo "##-----------------------------------------------------\n\e[0m"
   rm -rf ./install*
   rm -rf ./app/cache/*
@@ -72,21 +72,21 @@ function removeCachedDirectories() {
 }
 
 function removeComposerDirectories() {
-  echo "## Remove Composer Directories\n"
+  echo "## Remove Composer Directories"
   echo "## -----------------------------------------------------\n\e[0m"
   rm -rf ./vendor/*
   rm -rf ./**/vendor/*
 }
 
 function removeCompiledAssets() {
-  echo "## Remove Compiled Assets\n"
+  echo "## Remove Compiled Assets"
   echo "## -----------------------------------------------------\n\e[0m"
   find ./themes/**/assets/cache -type f -name '*.css' -delete
   find ./themes/**/assets/cache -type f -name '*.js' -delete
 }
 
 function removeNodeDirectories() {
-  echo "## Remove Node Modules Directories\n"
+  echo "## Remove Node Modules Directories"
   echo "## -----------------------------------------------------\n\e[0m"
   find . -type d -name 'node_modules' -exec rm -r {} +
 }
@@ -153,9 +153,9 @@ options=(
 
 select menu in "${options[@]}";
 do
-  echo "##-----------------------------------------------------\n"
-  echo "## $menu ($REPLY)\n"
-  echo "##-----------------------------------------------------\n"
+  echo "##-----------------------------------------------------"
+  echo "## $menu ($REPLY)"
+  echo "##-----------------------------------------------------"
 
   case $REPLY in
     1) createDumpDB;;
