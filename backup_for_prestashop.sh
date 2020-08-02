@@ -37,11 +37,11 @@ function printLogo {
 }
 
 function isConfFileExit {
-  if [ -f "$1" ]; then
+  if [ -f "$FILE" ]; then
       extractCredentials
       printCredentials
   else
-      echo "$1 does not exist."
+      echo "$FILE does not exist."
       set -e
   fi
 }
@@ -50,14 +50,7 @@ function removeGeneratedPictures() {
   echo "##-----------------------------------------------------"
   echo "## Remove Generated Pictures"
   echo "##-----------------------------------------------------\e[0m"
-  find ./ -name '*cart_default*' -delete
-  find ./ -name '*small_default*' -delete
-  find ./ -name '*medium_default*' -delete
-  find ./ -name '*home_default*' -delete
-  find ./ -name '*large_default*' -delete
-  find ./ -name '*category_default*' -delete
-  find ./ -name '*stores_default*' -delete
-  find ./ -name '*side_default*' -delete
+  find ./img/p -regextype sed -regex ".*/[0-9]*-[a-zA-Z_]*.jpg" -delete
   rm -rf ./img/tmp/*
 }
 
@@ -82,24 +75,24 @@ function removeComposerDirectories() {
 
   while read line; do
 
-      PATH_COMPOSER=$( echo $line  | tr "\"" " " | awk '{ print $1 }' )
-      SUBDIR=$( echo $PATH_COMPOSER | awk -F "/" '{print $2}')
+    PATH_COMPOSER=$( echo $line  | tr "\"" " " | awk '{ print $1 }' )
+    SUBDIR=$( echo $PATH_COMPOSER | awk -F "/" '{print $2}')
 
-      if [ -z "$SUBDIR" ]
-      then
-          continue
-      fi
-      if  [[ $PATH_COMPOSER == *"prestashop"* ]]
-      then
-          PATH_TO_DELETE="./modules/${SUBDIR}"
-      else
-          PATH_TO_DELETE="./vendor/${PATH_COMPOSER}"
-      fi
-      if  [ -d "$PATH_TO_DELETE" ]
-      then
-          rm -rf "${PATH_TO_DELETE}"
-          echo "${PATH_TO_DELETE} has been deleted"
-      fi
+    if [ -z "$SUBDIR" ]
+    then
+        continue
+    fi
+    if  [[ $PATH_COMPOSER == *"prestashop"* ]]
+    then
+        PATH_TO_DELETE="./modules/${SUBDIR}"
+    else
+        PATH_TO_DELETE="./vendor/${PATH_COMPOSER}"
+    fi
+    if  [ -d "$PATH_TO_DELETE" ]
+    then
+        rm -rf "${PATH_TO_DELETE}"
+        echo "${PATH_TO_DELETE} has been deleted"
+    fi
 
   done < $COMPOSER_FILE
 }
@@ -136,23 +129,16 @@ function printCredentials() {
 }
 
 function createDumpDB() {
-  echo "##"
-  echo "## DUMP BD"
-  echo "## ----------------------------------------------------\e[0m"
-
+  local DUMP_NAME=$(date +%F)_$DATABASE_NAME.sql
   mysqldump -u $DATABASE_USER -p"${DATABASE_PASSWORD}" -h $DATABASE_HOST $DATABASE_NAME > $(date +%F)_$DATABASE_NAME.sql
 
   echo ""
-  echo " Dump created in root directory project"
+  echo " Dump created in ${DUMP_NAME}"
   echo " ----------------------------------------------------\e[0m"
 }
 
 function createZipArchive() {
   local BACKUP_NAME=`date +%Y%m%d`_${PWD##*/}
-  echo "##"
-  echo "## ZIP ARCHIVE CREATION"
-  echo "## ----------------------------------------------------\e[0m"
-
   zip -r -9 /tmp/${BACKUP_NAME}.zip ./ --exclude "*.git*" --exclude "*.idea*"
 
   echo ""
@@ -163,7 +149,7 @@ function createZipArchive() {
 
 printLogo
 FILE="./app/config/parameters.php"
-isConfFileExit ${FILE}
+isConfFileExit
 
 options=(
 'Make a SQL dump in root project'
