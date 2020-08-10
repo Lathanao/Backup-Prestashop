@@ -24,8 +24,9 @@ hen make a backup.
   - Clean DB
   - Remove the search index and the facet cache in DB
   - CronJOb
+  - Convert all false jpeg / true png, in right jpg pictures
   - Send Archive on Gdrive with rclone
   
 - **Here what's look like the menu**:
 
-![synth-shell](doc/2020-07-28_19-42.png)
+![Backup Prestashop 1.7](doc/2020-07-28_19-42.png)

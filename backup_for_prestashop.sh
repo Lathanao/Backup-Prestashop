@@ -58,7 +58,7 @@ function removeCachedDirectories() {
   echo "##-----------------------------------------------------"
   echo "## Remove Cached Directories"
   echo "##-----------------------------------------------------\e[0m"
-  rm -rf ./install*
+  rm -rf ./install
   rm -rf ./app/cache/*
   rm -rf ./app/test/*
   rm -rf ./var/cache/*
